@@ -43,6 +43,8 @@ class ExpressAuthorizeRequestTest extends TestCase
             'addressOverride' => 0,
             'brandName' => 'Dunder Mifflin Paper Company, Inc.',
             'customerServiceNumber' => '1-801-FLOWERS',
+            'requireBillingAddress' => 1,
+
         ));
 
         $data = $this->request->getData();
@@ -61,6 +63,16 @@ class ExpressAuthorizeRequestTest extends TestCase
         $this->assertSame(0, $data['ADDROVERRIDE']);
         $this->assertSame('Dunder Mifflin Paper Company, Inc.', $data['BRANDNAME']);
         $this->assertSame('1-801-FLOWERS', $data['CUSTOMERSERVICENUMBER']);
+        $this->assertSame('Jane Doe', $data['BILLINGNAME']);
+        $this->assertSame('1 Main St', $data['STREET']);
+        $this->assertSame('Unit 123', $data['STREET2']);
+        $this->assertSame('San Jose', $data['CITY']);
+        $this->assertSame('CA', $data['STATE']);
+        $this->assertSame('95131', $data['ZIP']);
+        $this->assertSame('US', $data['COUNTRY']);
+        $this->assertSame('United States', $data['COUNTRYNAME']);
+        $this->assertSame('PayPal', $data['ADDRESSOWNER']);
+        $this->assertSame('Confirmed', $data['ADDRESSSTATUS']);
     }
 
     public function testGetDataWithCard()
@@ -84,6 +96,7 @@ class ExpressAuthorizeRequestTest extends TestCase
             'localeCode' => 'EN',
             'customerServiceNumber' => '1-801-FLOWERS',
             'sellerPaypalAccountId' => 'billing@example.com',
+            'requireBillingAddress' => 1,
         ));
 
         $card = new CreditCard(array(
@@ -140,6 +153,16 @@ class ExpressAuthorizeRequestTest extends TestCase
             'LOCALECODE' => 'EN',
             'CUSTOMERSERVICENUMBER' => '1-801-FLOWERS',
             'PAYMENTREQUEST_0_SELLERPAYPALACCOUNTID' => 'billing@example.com',
+            'BILLINGNAME' => 'Jane Doe',
+            'STREET' => '1 Main St',
+            'STREET2' => 'Unit 123',
+            'CITY' => 'San Jose',
+            'STATE' => 'CA',
+            'ZIP' => '95131',
+            'COUNTRY' => 'US',
+            'COUNTRYNAME' => 'United States',
+            'ADDRESSOWNER' => 'PayPal',
+            'ADDRESSSTATUS' => 'Confirmed',
         );
 
         $this->assertEquals($expected, $this->request->getData());
