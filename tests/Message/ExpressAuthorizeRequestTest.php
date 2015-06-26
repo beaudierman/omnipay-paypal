@@ -43,6 +43,7 @@ class ExpressAuthorizeRequestTest extends TestCase
             'addressOverride' => 0,
             'brandName' => 'Dunder Mifflin Paper Company, Inc.',
             'customerServiceNumber' => '1-801-FLOWERS',
+            'requireBillingAddress' => 1,
         ));
 
         $data = $this->request->getData();
@@ -61,6 +62,7 @@ class ExpressAuthorizeRequestTest extends TestCase
         $this->assertSame(0, $data['ADDROVERRIDE']);
         $this->assertSame('Dunder Mifflin Paper Company, Inc.', $data['BRANDNAME']);
         $this->assertSame('1-801-FLOWERS', $data['CUSTOMERSERVICENUMBER']);
+        $this->assertSame(1, $data['REQBILLINGADDRESS']);
     }
 
     public function testGetDataWithCard()
@@ -84,6 +86,7 @@ class ExpressAuthorizeRequestTest extends TestCase
             'localeCode' => 'EN',
             'customerServiceNumber' => '1-801-FLOWERS',
             'sellerPaypalAccountId' => 'billing@example.com',
+            'requireBillingAddress' => 1,
         ));
 
         $card = new CreditCard(array(
@@ -140,6 +143,7 @@ class ExpressAuthorizeRequestTest extends TestCase
             'LOCALECODE' => 'EN',
             'CUSTOMERSERVICENUMBER' => '1-801-FLOWERS',
             'PAYMENTREQUEST_0_SELLERPAYPALACCOUNTID' => 'billing@example.com',
+            'REQBILLINGADDRESS' => 1,
         );
 
         $this->assertEquals($expected, $this->request->getData());

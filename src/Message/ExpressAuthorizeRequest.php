@@ -33,6 +33,7 @@ class ExpressAuthorizeRequest extends AbstractRequest
         $data['CARTBORDERCOLOR'] = $this->getBorderColor();
         $data['LOCALECODE'] = $this->getLocaleCode();
         $data['CUSTOMERSERVICENUMBER'] = $this->getCustomerServiceNumber();
+        $data['REQBILLINGADDRESS'] = $this->getRequireBillingAddress();
 
         $data['MAXAMT'] = $this->getMaxAmount();
         $data['PAYMENTREQUEST_0_TAXAMT'] = $this->getTaxAmount();
