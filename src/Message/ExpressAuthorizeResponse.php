@@ -26,7 +26,6 @@ class ExpressAuthorizeResponse extends Response implements RedirectResponseInter
     {
         $query = array(
             'cmd' => '_express-checkout',
-            'useraction' => 'commit',
             'token' => $this->getTransactionReference(),
         );
 
