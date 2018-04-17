@@ -160,9 +160,16 @@ abstract class AbstractRestRequest extends \Omnipay\Common\Message\AbstractReque
         // logging engine is being used.
         // echo "Data == " . json_encode($data) . "\n";
 
-        $httpResponse = $httpRequest->send();
-
-        return $this->response = $this->createResponse($httpResponse->json(), $httpResponse->getStatusCode());
+        try {
+            $httpRequest->getCurlOptions()->set(CURLOPT_SSLVERSION, 6); // CURL_SSLVERSION_TLSv1_2 for libcurl < 7.35
+            $httpResponse = $httpRequest->send();
+            return $this->response = $this->createResponse($httpResponse->json(), $httpResponse->getStatusCode());
+        } catch (\Exception $e) {
+            throw new InvalidResponseException(
+                'Error communicating with payment gateway: ' . $e->getMessage(),
+                $e->getCode()
+            );
+        }
     }
 
     /**
