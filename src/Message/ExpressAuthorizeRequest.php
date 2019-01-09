@@ -34,6 +34,7 @@ class ExpressAuthorizeRequest extends AbstractRequest
         $data['LOCALECODE'] = $this->getLocaleCode();
         $data['CUSTOMERSERVICENUMBER'] = $this->getCustomerServiceNumber();
         $data['REQBILLINGADDRESS'] = $this->getRequireBillingAddress();
+        $data['USERSELECTEDFUNDINGSOURCE'] = $this->getPayPalCredit();
 
         $data['MAXAMT'] = $this->getMaxAmount();
         $data['PAYMENTREQUEST_0_TAXAMT'] = $this->getTaxAmount();

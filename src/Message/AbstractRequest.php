@@ -272,6 +272,19 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getParameter('requireBillingAddress');
     }
 
+    public function setPayPalCredit($value)
+    {
+        if($value == 1)
+        {
+            return $this->setParameter('payPalCredit', 'BML');
+        }
+    }
+
+    public function getPayPalCredit()
+    {
+        return $this->getParameter('payPalCredit');
+    }
+
     /**
      * The Button Source (BN Code) is for PayPal Partners taking payments for a 3rd party
      */
